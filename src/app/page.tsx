@@ -1,127 +1,191 @@
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 export default function Home() {
-      return (
-        <div className="min-h-screen bg-gray-50 text-gray-800 py-10 px-6">
-          <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8">
-            <h1 className="text-3xl font-bold mb-4">📈 Stock History API Documentation</h1>
-            <p className="mb-4">
-              This API fetches historical stock data from Yahoo Finance. You can query data using query
-              parameters.
-            </p>
-    
-            <h2 className="text-xl font-semibold mb-2">🔗 Endpoint</h2>
-            <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm mb-4">
-              <code>/api/stock-history</code>
-            </pre>
-    
-            <h2 className="text-xl font-semibold mb-2">📝 Query Parameters</h2>
-            <table className="w-full text-sm border border-gray-200 mb-6">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border px-3 py-2 text-left">Parameter</th>
-                  <th className="border px-3 py-2 text-left">Required</th>
-                  <th className="border px-3 py-2 text-left">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="border px-3 py-2">symbol</td>
-                  <td className="border px-3 py-2">✅</td>
-                  <td className="border px-3 py-2">Stock symbol (e.g., AAPL, TSLA)</td>
-                </tr>
-                <tr>
-                  <td className="border px-3 py-2">period1</td>
-                  <td className="border px-3 py-2">optional</td>
-                  <td className="border px-3 py-2">Start date (YYYY-MM-DD)</td>
-                </tr>
-                <tr>
-                  <td className="border px-3 py-2">period2</td>
-                  <td className="border px-3 py-2">optional</td>
-                  <td className="border px-3 py-2">End date (YYYY-MM-DD, defaults to today)</td>
-                </tr>
-                <tr>
-                  <td className="border px-3 py-2">interval</td>
-                  <td className="border px-3 py-2">optional</td>
-                  <td className="border px-3 py-2">Data interval (1d, 1wk, 1mo), default is 1d</td>
-                </tr>
-                <tr>
-                  <td className="border px-3 py-2">limit</td>
-                  <td className="border px-3 py-2">optional</td>
-                  <td className="border px-3 py-2">Limit number of results</td>
-                </tr>
-              </tbody>
-            </table>
-    
-            <h2 className="text-xl font-semibold mb-2">🚀 Example Request</h2>
-            <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm mb-4">
-              <code>
-                {`GET /api/stock-history?symbol=AAPL&period1=2023-01-01&period2=2023-04-01&interval=1d&limit=10`}
-              </code>
-            </pre>
-    
-            <h2 className="text-xl font-semibold mb-2">💻 Example Client-side Fetch</h2>
-            <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm">
-              <code>
-                {`const fetchStockData = async () => {
-      const res = await fetch('/api/stock-history?symbol=AAPL&period1=2023-01-01&period2=2023-04-01&interval=1d&limit=5');
-      const data = await res.json();
-      console.log(data);
-    };`}
-              </code>
-            </pre>
-    
-            <p className="text-xs text-gray-500 mt-4">
-              This API uses <a href="https://www.npmjs.com/package/yahoo-finance2" className="underline" target="_blank">yahoo-finance2</a> under the hood.
+  return (
+    <div className="min-h-screen bg-[#1a1a1a] text-white">
+      {/* Header */}
+      <Header/>
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-[#1a1a1a] py-20">
+        <div className="max-w-4xl mx-auto text-center px-6 relative z-10 mt-10">
+          <h1 className="text-5xl font-bold mb-6">Yahoo Finance API Documentation</h1>
+          <p className="text-xl mb-8">
+            A powerful API for accessing real-time stock data, historical prices, and market information
+          </p>
+          <div className="flex justify-center space-x-4">
+            <a href="#docs" className="bg-[#262626] hover:bg-blue-700 px-6 py-3 rounded-4xl font-medium">
+              View Documentation
+            </a>
+            <a href="https://github.com/hermantoXYZ/api-yahoo-finance" 
+               target="_blank" 
+               className="bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-4xl font-medium">
+              View on GitHub
+            </a>
+          </div>
+        </div>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-[url('/sparkles.png')] bg-repeat"></div>
+        </div>
+      </div>
+
+      {/* Feature Cards */}
+      <div className="max-w-7xl mx-auto py-16 px-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Real-time Data Card */}
+          <div className="bg-[#313131] rounded-xl p-8 shadow-lg border border-white/20">
+            <div className="flex items-center mb-4">
+              <span className="text-3xl mr-3">⚡</span>
+              <h2 className="text-2xl font-bold">Real-time Data</h2>
+            </div>
+            <p className="text-gray-300">
+              Access live stock quotes and market data with millisecond precision
             </p>
           </div>
-          <div className="min-h-screen bg-gray-50 text-gray-800 py-10 px-6">
-  <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8">
-    <h1 className="text-3xl font-bold mb-4">📊 Stock Quote API Documentation</h1>
-    <p className="mb-4">
-      This API fetches real-time stock quote data from Yahoo Finance. You can query the current quote
-      using query parameters.
-    </p>
 
-    <h2 className="text-xl font-semibold mb-2">🔗 Endpoint</h2>
-    <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm mb-4">
-      <code>/api/stock/quote</code>
-    </pre>
+          {/* Historical Data Card */}
+          <div className="bg-[#313131] rounded-xl p-8 shadow-lg border border-white/20">
+            <div className="flex items-center mb-4">
+              <span className="text-3xl mr-3">📈</span>
+              <h2 className="text-2xl font-bold">Historical Data</h2>
+            </div>
+            <p className="text-gray-300">
+              Get detailed historical price data with customizable date ranges
+            </p>
+          </div>
 
-    <h2 className="text-xl font-semibold mb-2">📝 Query Parameters</h2>
-    <table className="w-full text-sm border border-gray-200 mb-6">
-      <thead>
-        <tr className="bg-gray-100">
-          <th className="border px-3 py-2 text-left">Parameter</th>
-          <th className="border px-3 py-2 text-left">Required</th>
-          <th className="border px-3 py-2 text-left">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td className="border px-3 py-2">symbol</td>
-          <td className="border px-3 py-2">✅</td>
-          <td className="border px-3 py-2">Stock symbol (e.g., BBRI.JK, AAPL, TSLA)</td>
-        </tr>
-      </tbody>
-    </table>
+          {/* Search Functionality Card */}
+          <div className="bg-[#313131] rounded-xl p-8 shadow-lg border border-white/20">
+            <div className="flex items-center mb-4">
+              <span className="text-3xl mr-3">🔍</span>
+              <h2 className="text-2xl font-bold">Smart Search</h2>
+            </div>
+            <p className="text-gray-300">
+              Find stocks by symbol or company name across global markets
+            </p>
+          </div>
+        </div>
+      </div>
 
-    <h2 className="text-xl font-semibold mb-2">🚀 Example Request</h2>
-    <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm mb-4">
-      <code>GET /api/stock/quote?symbol=BBRI.JK</code>
-    </pre>
+      {/* Main Documentation Content */}
+      <div className="max-w-7xl mx-auto mb-10 px-6" id="docs">
+        {/* Your existing documentation content here */}
+        <div className="grid grid-cols-1 gap-8">
+          {/* Stock History API Section */}
+          <div className="bg-[#313131] rounded-xl p-8 shadow-lg border border-white/20" id="history">
+            <div className="mx-auto">
+              <h2 className="text-3xl font-bold mb-4">Stock History API</h2>
+              <p className="mb-4">
+                This API endpoint fetches historical stock data from Yahoo Finance.
+              </p>
+              <h3 className="text-xl font-semibold mb-2">Endpoint</h3>
+              <pre className="bg-[#262626] border border-white/10 rounded-lg p-4 overflow-x-auto text-sm mb-4">
+                <code>/api/stock/history</code>
+              </pre>
+              <h3 className="text-xl font-semibold mb-2">Query Parameters</h3>
+              <table className="w-full text-sm border border-gray-700 mb-6">
+                <thead>
+                  <tr className="bg-gray-700">
+                    <th className="border px-3 py-2 text-left">Parameter</th>
+                    <th className="border px-3 py-2 text-left">Required</th>
+                    <th className="border px-3 py-2 text-left">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="border px-3 py-2">symbol</td>
+                    <td className="border px-3 py-2">✅</td>
+                    <td className="border px-3 py-2">Stock symbol (e.g., BBRI.JK, TSLA)</td>
+                  </tr>
+                  <tr>
+                    <td className="border px-3 py-2">period1</td>
+                    <td className="border px-3 py-2">optional</td>
+                    <td className="border px-3 py-2">Start date (YYYY-MM-DD)</td>
+                  </tr>
+                  <tr>
+                    <td className="border px-3 py-2">period2</td>
+                    <td className="border px-3 py-2">optional</td>
+                    <td className="border px-3 py-2">End date (YYYY-MM-DD, defaults to today)</td>
+                  </tr>
+                  <tr>
+                    <td className="border px-3 py-2">interval</td>
+                    <td className="border px-3 py-2">optional</td>
+                    <td className="border px-3 py-2">Data interval (1d, 1wk, 1mo), default is 1d</td>
+                  </tr>
+                  <tr>
+                    <td className="border px-3 py-2">limit</td>
+                    <td className="border px-3 py-2">optional</td>
+                    <td className="border px-3 py-2">Limit number of results</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 className="text-xl font-semibold mb-2">Example Request</h3>
+              <pre className="bg-[#262626] border border-white/10 rounded-lg p-4 overflow-x-auto text-sm mb-4">
+                <code>
+                  {`GET /api/stock/history?symbol=AAPL&period1=2023-01-01&period2=2023-04-01&interval=1d&limit=10`}
+                </code>
+              </pre>
+              <h3 className="text-xl font-semibold mb-2">Example Response</h3>
+              <pre className="bg-[#262626] rounded-lg p-4 overflow-x-auto text-sm">
+                <code>{`[
+  {
+    "date": "2023-01-01",
+    "open": 150.0,
+    "high": 155.0,
+    "low": 149.0,
+    "close": 154.0,
+    "volume": 1000000,
+    "adjClose": 154.0
+  },
+  ...
+]`}</code>
+              </pre>
+              <p className="text-xs text-gray-500 mt-4">
+                This API uses <a href="https://www.npmjs.com/package/yahoo-finance2" 
+                               className="underline" 
+                               target="_blank">yahoo-finance2</a> under the hood.
+              </p>
+            </div>
+          </div>
 
-    <h2 className="text-xl font-semibold mb-2">💻 Example Client-side Fetch</h2>
-    <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm mb-4">
-      <code>{`const fetchQuote = async () => {
-  const res = await fetch('/api/stock/quote?symbol=BBRI.JK');
-  const data = await res.json();
-  console.log(data);
-};`}</code>
-    </pre>
-
-    <h2 className="text-xl font-semibold mb-2">📦 Example Response</h2>
-    <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm">
-      <code>{`{
+          {/* Stock Quote API Section */}
+         {/* Stock Quote API Section */}
+         <div className="bg-[#313131] rounded-xl p-8 shadow-lg border border-white/20" id="quote">
+            <div className="mx-auto">
+              <h2 className="text-3xl font-bold mb-4">Stock Quote API</h2>
+              <p className="mb-4">
+                This API endpoint fetches real-time stock quote data from Yahoo Finance.
+              </p>
+              <h3 className="text-xl font-semibold mb-2">Endpoint</h3>
+              <pre className="bg-[#262626] border border-white/10 rounded-lg p-4 overflow-x-auto text-sm mb-4">
+                <code>/api/stock/quote</code>
+              </pre>
+              <h3 className="text-xl font-semibold mb-2">Query Parameters</h3>
+              <table className="w-full text-sm border border-gray-700 mb-6">
+                <thead>
+                  <tr className="bg-gray-700">
+                    <th className="border px-3 py-2 text-left">Parameter</th>
+                    <th className="border px-3 py-2 text-left">Required</th>
+                    <th className="border px-3 py-2 text-left">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="border px-3 py-2">symbol</td>
+                    <td className="border px-3 py-2">✅</td>
+                    <td className="border px-3 py-2">Stock symbol (e.g., BBRI.JK, AAPL, TSLA)</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 className="text-xl font-semibold mb-2">Example Request</h3>
+              <pre className="bg-[#262626] border border-white/10 rounded-lg p-4 overflow-x-auto text-sm mb-4">
+                <code>
+                  {`GET /api/stock/quote?symbol=BBRI.JK`}
+                </code>
+              </pre>
+              <h3 className="text-xl font-semibold mb-2">Example Response</h3>
+              <pre className="bg-[#262626] border border-white/10 rounded-lg p-4 overflow-x-auto text-sm">
+                <code>{`{
   "symbol": "BBRI.JK",
   "regularMarketPrice": 3850,
   "regularMarketChange": 0,
@@ -160,135 +224,79 @@ export default function Home() {
   "ask": 3850,
   "bid": 3840
 }`}</code>
-    </pre>
+              </pre>
+              <p className="text-xs text-gray-500 mt-4">
+                This API uses <a href="https://www.npmjs.com/package/yahoo-finance2" 
+                               className="underline" 
+                               target="_blank">yahoo-finance2</a> under the hood.
+              </p>
+            </div>
+          </div>
 
-    <p className="text-xs text-gray-500 mt-4">
-      This API uses <a href="https://www.npmjs.com/package/yahoo-finance2" className="underline" target="_blank">yahoo-finance2</a> under the hood.
-    </p>
-  </div>
-</div>
-<div className="min-h-screen bg-gray-50 text-gray-800 py-2 px-6">
-  <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8">
-    <h1 className="text-3xl font-bold mb-4">🔍 Stock Search API Documentation</h1>
-    <p className="mb-4">
-      This API searches for stock information based on the provided query (e.g., symbol or company name).
-    </p>
-
-    <h2 className="text-xl font-semibold mb-2">🔗 Endpoint</h2>
-    <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm mb-4">
-      <code>/api/stock/search</code>
-    </pre>
-
-    <h2 className="text-xl font-semibold mb-2">📝 Query Parameters</h2>
-    <table className="w-full text-sm border border-gray-200 mb-6">
-      <thead>
-        <tr className="bg-gray-100">
-          <th className="border px-3 py-2 text-left">Parameter</th>
-          <th className="border px-3 py-2 text-left">Required</th>
-          <th className="border px-3 py-2 text-left">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td className="border px-3 py-2">query</td>
-          <td className="border px-3 py-2">✅</td>
-          <td className="border px-3 py-2">Stock symbol or company name (e.g., BBRI.JK, Bank Rakyat Indonesia)</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2 className="text-xl font-semibold mb-2">🚀 Example Request</h2>
-    <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm mb-4">
-      <code>GET /api/stock/search?query=BBRI.JK</code>
-    </pre>
-
-    <h2 className="text-xl font-semibold mb-2">💻 Example Client-side Fetch</h2>
-    <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm mb-4">
-      <code>{`const fetchStockSearch = async () => {
-  const res = await fetch('/api/stock/search?query=BBRI.JK');
-  const data = await res.json();
-  console.log(data);
-};`}</code>
-    </pre>
-
-    <h2 className="text-xl font-semibold mb-2">📦 Example Response</h2>
-    <pre className="bg-gray-100 rounded-lg p-4 overflow-x-auto text-sm">
-      <code>{`[
+          {/* Stock Search API Section */}
+       {/* Stock Search API Section */}
+       <div className="bg-[#313131] rounded-xl p-8 shadow-lg border border-white/20" id="search">
+            <div className="mx-auto">
+              <h2 className="text-3xl font-bold mb-4">Stock Search API</h2>
+              <p className="mb-4">
+                This API endpoint searches for stock information based on the provided query.
+              </p>
+              <h3 className="text-xl font-semibold mb-2">Endpoint</h3>
+              <pre className="bg-[#262626] border border-white/10 rounded-lg p-4 overflow-x-auto text-sm mb-4">
+                <code>/api/stock/search</code>
+              </pre>
+              <h3 className="text-xl font-semibold mb-2">Query Parameters</h3>
+              <table className="w-full text-sm border border-gray-700 mb-6">
+                <thead>
+                  <tr className="bg-gray-700">
+                    <th className="border px-3 py-2 text-left">Parameter</th>
+                    <th className="border px-3 py-2 text-left">Required</th>
+                    <th className="border px-3 py-2 text-left">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="border px-3 py-2">query</td>
+                    <td className="border px-3 py-2">✅</td>
+                    <td className="border px-3 py-2">Stock symbol or company name (e.g., BBRI.JK, Bank Rakyat Indonesia)</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 className="text-xl font-semibold mb-2">🚀 Example Request</h3>
+              <pre className="bg-[#262626] border border-white/10 rounded-lg p-4 overflow-x-auto text-sm mb-4">
+                <code>
+                  {`GET /api/stock/search?query=BBRI.JK`}
+                </code>
+              </pre>
+              <h3 className="text-xl font-semibold mb-2">Example Response</h3>
+              <pre className="bg-[#262626] border border-white/10 rounded-lg p-4 overflow-x-auto text-sm">
+                <code>{`[
   {
+    "symbol": "BBRI.JK",
+    "exchDisp": "Jakarta",
     "exchange": "JKT",
     "shortname": "Bank Rakyat Indonesia (Persero)",
-    "quoteType": "EQUITY",
-    "symbol": "BBRI.JK",
-    "index": "quotes",
-    "score": 10026000,
-    "typeDisp": "Equity",
     "longname": "PT Bank Rakyat Indonesia (Persero) Tbk",
-    "exchDisp": "Jakarta",
-    "sector": "Financial Services",
-    "sectorDisp": "Financial Services",
-    "industry": "Banks—Regional",
-    "industryDisp": "Banks—Regional",
-    "isYahooFinance": true
-  }
+    "typeDisp": "Equity",
+    "quoteType": "EQUITY",
+    "score": 10026000
+  },
+  ...
 ]`}</code>
-    </pre>
-
-    <h2 className="text-xl font-semibold mb-2">📋 Response Field Descriptions</h2>
-    <table className="w-full text-sm border border-gray-200 mb-6">
-      <thead>
-        <tr className="bg-gray-100">
-          <th className="border px-3 py-2 text-left">Field</th>
-          <th className="border px-3 py-2 text-left">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td className="border px-3 py-2">exchange</td>
-          <td className="border px-3 py-2">Stock exchange where the stock is listed (e.g., JKT for Jakarta Stock Exchange)</td>
-        </tr>
-        <tr>
-          <td className="border px-3 py-2">shortname</td>
-          <td className="border px-3 py-2">Short name of the company (e.g., Bank Rakyat Indonesia)</td>
-        </tr>
-        <tr>
-          <td className="border px-3 py-2">quoteType</td>
-          <td className="border px-3 py-2">Type of quote (e.g., EQUITY for stocks)</td>
-        </tr>
-        <tr>
-          <td className="border px-3 py-2">symbol</td>
-          <td className="border px-3 py-2">Stock symbol (e.g., BBRI.JK)</td>
-        </tr>
-        <tr>
-          <td className="border px-3 py-2">longname</td>
-          <td className="border px-3 py-2">Full name of the company (e.g., PT Bank Rakyat Indonesia (Persero) Tbk)</td>
-        </tr>
-        <tr>
-          <td className="border px-3 py-2">sector</td>
-          <td className="border px-3 py-2">Sector the company belongs to (e.g., Financial Services)</td>
-        </tr>
-        <tr>
-          <td className="border px-3 py-2">industry</td>
-          <td className="border px-3 py-2">Industry the company belongs to (e.g., Banks—Regional)</td>
-        </tr>
-        <tr>
-          <td className="border px-3 py-2">exchDisp</td>
-          <td className="border px-3 py-2">Display name of the exchange (e.g., Jakarta)</td>
-        </tr>
-        <tr>
-          <td className="border px-3 py-2">isYahooFinance</td>
-          <td className="border px-3 py-2">Indicates if the stock data is provided by Yahoo Finance</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p className="text-xs text-gray-500 mt-4">
-      This API uses <a href="https://www.npmjs.com/package/yahoo-finance2" className="underline" target="_blank">yahoo-finance2</a> under the hood.
-    </p>
-  </div>
-</div>
-
+              </pre>
+              <p className="text-xs text-gray-500 mt-4">
+                This API uses <a href="https://www.npmjs.com/package/yahoo-finance2" 
+                               className="underline" 
+                               target="_blank">yahoo-finance2</a> under the hood.
+              </p>
+            </div>
+          </div>
         </div>
-      );
-    }
+      </div>
+
+<Footer/>
+    </div>
+  );
+}
     
 
