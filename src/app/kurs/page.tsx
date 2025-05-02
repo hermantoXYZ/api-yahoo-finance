@@ -1,0 +1,236 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
+} from 'recharts';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+
+interface HistoricalDataPoint {
+  date: string;
+  price: number;
+  open: number;
+  high: number;
+  low: number;
+  volume: number;
+}
+
+interface KursData {
+  symbol: string;
+  currentPrice: number;
+  previousClose: number;
+  change: string;
+  changePercent: string;
+  timestamp: string;
+  range: string;
+  interval: string;
+  historicalData: HistoricalDataPoint[];
+}
+
+export default function KursPage() {
+  const [kursData, setKursData] = useState<KursData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [range, setRange] = useState('1mo');
+  const [interval, setInterval] = useState('1d');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`/api/kurs?range=${range}&interval=${interval}`);
+        setKursData(response.data);
+        setError(null);
+      } catch (err) {
+        setError('Failed to fetch exchange rate data');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [range, interval]);
+
+  // Format date for display
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
+
+  // Handle range change
+  const handleRangeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setRange(e.target.value);
+  };
+
+  // Handle interval change
+  const handleIntervalChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setInterval(e.target.value);
+  };
+
+  if (loading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  if (error) return <div className="flex justify-center items-center h-screen text-red-500">{error}</div>;
+  if (!kursData) return <div className="flex justify-center items-center h-screen">No data available</div>;
+
+  return (
+    <div className="min-h-screen bg-[#1a1a1a] text-white">
+    <Header/>
+    <div className="relative overflow-hidden bg-[#1a1a1a] py-19">
+        <div className="max-w-4xl mx-auto text-center px-10 relative z-10 mt-4">
+          <h1 className="text-5xl font-bold mb-6">Yahoo Finance API Documentation</h1>
+          <p className="text-xl mb-8">
+            A powerful API for accessing real-time stock data, historical prices, and market information
+          </p>
+        
+        </div>
+      </div>
+    <div className="container mx-auto">
+      <h1 className="text-2xl  font-bold mb-4 text-white rounded-4xl">⚡ USD/IDR Exchange Rate</h1>
+      
+      <div className=" bg-[#313131] p-4  border border-white/20 rounded-lg shadow mb-6 text-white">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="p-4 border border-white/20 rounded-lg backdrop-blur-md bg-white/10 ">
+            <h2 className="text-lg font-semibold">Current Price</h2>
+            <p className="text-3xl font-bold">{kursData.currentPrice?.toLocaleString() || '-'} IDR</p>
+          </div>
+          <div className="p-4 border border-white/20 rounded-lg backdrop-blur-md bg-white/10 ">
+            <h2 className="text-lg font-semibold">Change</h2>
+            <p className={`text-3xl font-bold ${parseFloat(kursData.change) < 0 ? 'text-red-500' : 'text-green-500'}`}>
+              {kursData.change} ({kursData.changePercent})
+            </p>
+          </div>
+          <div className="p-4 border border-white/20 rounded-lg backdrop-blur-md bg-white/10 ">
+            <h2 className="text-lg font-semibold">Previous Close</h2>
+            <p className="text-3xl font-bold">{kursData.previousClose?.toLocaleString() || '-'} IDR</p>
+          </div>
+        </div>
+        
+        <div className="mb-4 flex flex-wrap gap-4">
+          <div>
+            <label htmlFor="range" className="block text-sm font-medium text-gray mb-1">Time Range:</label>
+            <select
+              id="range"
+              value={range}
+              onChange={handleRangeChange}
+              className="border rounded p-2  text-gray-300"
+            >
+              <option value="1d">1 Day</option>
+              <option value="5d">5 Days</option>
+              <option value="1mo">1 Month</option>
+              <option value="3mo">3 Months</option>
+              <option value="6mo">6 Months</option>
+              <option value="1y">1 Year</option>
+              <option value="2y">2 Years</option>
+              <option value="5y">5 Years</option>
+              <option value="max">Max</option>
+            </select>
+          </div>
+          
+          <div>
+            <label htmlFor="interval" className="block text-sm font-medium text-gray-200 mb-1">Interval:</label>
+            <select
+              id="interval"
+              value={interval}
+              onChange={handleIntervalChange}
+              className="border rounded p-2 text-gray-300"
+            >
+              <option value="1m">1 Minute</option>
+              <option value="5m">5 Minutes</option>
+              <option value="15m">15 Minutes</option>
+              <option value="30m">30 Minutes</option>
+              <option value="60m">60 Minutes</option>
+              <option value="1d">1 Day</option>
+              <option value="1wk">1 Week</option>
+              <option value="1mo">1 Month</option>
+            </select>
+          </div>
+        </div>
+        
+        <div className="h-96">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={kursData.historicalData}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis 
+                dataKey="date" 
+                tickFormatter={formatDate}
+                minTickGap={30}
+              />
+              <YAxis 
+                domain={['auto', 'auto']}
+                tickFormatter={(value) => value.toLocaleString()}
+              />
+              <Tooltip 
+                formatter={(value: number) => [value.toLocaleString() + ' IDR', 'Price']}
+                labelFormatter={(label) => formatDate(label)}
+              />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="price"
+                stroke="#8884d8"
+                activeDot={{ r: 8 }}
+                name="Close Price"
+              />
+              <Line
+                type="monotone"
+                dataKey="high"
+                stroke="#82ca9d"
+                name="High"
+              />
+              <Line
+                type="monotone"
+                dataKey="low"
+                stroke="#ff7300"
+                name="Low"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+      
+      <div className=" bg-[#313131] p-4 rounded-lg shadow">
+        <h2 className="text-xl font-bold mb-4 text-white">⚡Historical Data</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-[#313131]">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Open</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">High</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Low</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Close</th>
+         
+              </tr>
+            </thead>
+            <tbody className="  bg-[#313131] divide-y divide-white/20 text-white">
+              {kursData.historicalData.slice(0, 20).map((dataPoint, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4 whitespace-nowrap">{formatDate(dataPoint.date)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{dataPoint.open?.toLocaleString() || '-'}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{dataPoint.high?.toLocaleString() || '-'}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{dataPoint.low?.toLocaleString() || '-'}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{dataPoint.price?.toLocaleString() || '-'}</td>
+    
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <Footer/>
+    </div>
+  );
+}

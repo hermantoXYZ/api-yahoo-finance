@@ -1,5 +1,11 @@
+import dynamic from "next/dynamic";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+
+const ExchangeRateChart = dynamic(
+  () => import('./components/ExchangeRateChart'),
+  { ssr: true }
+);
 
 export default function Home() {
   return (
@@ -28,6 +34,13 @@ export default function Home() {
           <div className="absolute inset-0 bg-[url('/sparkles.png')] bg-repeat"></div>
         </div>
       </div>
+
+ {/* USD/IDR Exchange Rate Chart */}
+      <div className="max-w-7xl mx-auto px-6 mb-10">
+        <h2 className="text-2xl font-bold mb-4 text-white">⚡ USD/IDR Exchange Rate</h2>
+        <ExchangeRateChart />
+      </div>
+
 
       {/* Feature Cards */}
       <div className="max-w-7xl mx-auto py-16 px-6">
@@ -66,6 +79,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      
 
       {/* Main Documentation Content */}
       <div className="max-w-7xl mx-auto mb-10 px-6" id="docs">
