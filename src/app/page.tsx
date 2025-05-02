@@ -15,18 +15,18 @@ export default function Home() {
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-[#1a1a1a] py-20">
         <div className="max-w-4xl mx-auto text-center px-6 relative z-10 mt-10">
-          <h1 className="text-5xl font-bold mb-6">Yahoo Finance API Documentation</h1>
+          <h1 className="text-3xl md:text-5xl font-bold mb-6">Yahoo Finance API Documentation</h1>
           <p className="text-xl mb-8">
             A powerful API for accessing real-time stock data, historical prices, and market information
           </p>
           <div className="flex justify-center space-x-4">
             <a href="#docs" className="bg-[#262626] hover:bg-blue-700 px-6 py-3 rounded-4xl font-medium">
-              View Documentation
+              Documentation
             </a>
             <a href="https://github.com/hermantoXYZ/api-yahoo-finance" 
                target="_blank" 
-               className="bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-4xl font-medium">
-              View on GitHub
+               className="bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-4xl font-medium text-center">
+              GitHub
             </a>
           </div>
         </div>

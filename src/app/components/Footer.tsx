@@ -7,7 +7,7 @@ export default function Footer() {
              <p className="text-gray-400">
                Powered by <a href="https://www.npmjs.com/package/yahoo-finance2" 
                            className="text-blue-400 hover:underline" 
-                           target="_blank">yahoo-finance2</a>
+                           target="_blank">hermantoXYZ</a>
              </p>
            </div>
            <div className="flex space-x-6">

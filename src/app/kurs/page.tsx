@@ -86,8 +86,8 @@ export default function KursPage() {
     <Header/>
     <div className="relative overflow-hidden bg-[#1a1a1a] py-19">
         <div className="max-w-4xl mx-auto text-center px-10 relative z-10 mt-4">
-          <h1 className="text-5xl font-bold mb-6">Yahoo Finance API Documentation</h1>
-          <p className="text-xl mb-8">
+          <h1 className="text-3xl md:text-5xl font-bold mb-6">Yahoo Finance API Documentation</h1>
+          <p className="text-xl mb-0">
             A powerful API for accessing real-time stock data, historical prices, and market information
           </p>
         
